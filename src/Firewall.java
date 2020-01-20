@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Firewall {
   private static Set<Rule> rules = new HashSet<Rule>();
-  private Firewall(String filename){
+  protected Firewall(String filename){
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String line;
       while((line = br.readLine()) != null) {
@@ -95,31 +95,13 @@ public class Firewall {
     if ((!direction.equals("inbound")) && !direction.equals("outbound")) {
       throw new IllegalArgumentException("Enter Correct value for direction");
     }
-    if ((!protocol.equals("tcp")) && !protocol.equals("ucp")) {
-      throw new IllegalArgumentException("Enter Correct value for direction");
+    if ((!protocol.equals("tcp")) && !protocol.equals("udp")) {
+      throw new IllegalArgumentException("Enter Correct value for protocol");
     }
     Rule rule = new Rule(direction, protocol, port, ipAddress);
     return rules.contains(rule);
   }
 
-  /**
-   * Represents the tests, and instantiation of the firewall.
-   */
-  public static void main(String[] args) {
-    Firewall f;
-    f = new Firewall("rules.csv");
-    boolean test1 = f.acceptPacket("outbound", "tcp", 20000, "192.168.10.11");
-    boolean test2 = f.acceptPacket("inbound", "tcp",80,"192.168.1.2");
-    boolean test3 = f.acceptPacket("inbound", "tcp",80,"192.168.1.322");
-    boolean test4 = f.acceptPacket("inbound", "udp",43,"12.53.6.25");
-    boolean test5 = f.acceptPacket("inbound", "tcp",673,"123.45.56.83");
-    System.out.println(test1);
-    System.out.println(test2);
-    System.out.println(test3);
-    System.out.println(test4);
-    System.out.println(test5);
-
-  }
 
 
 
