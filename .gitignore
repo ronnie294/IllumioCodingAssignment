@@ -1,0 +1,9 @@
+.idea/
+logs*
+*.DS_Store
+*.db
+.idea
+*.temp
+*.iml
+Thumbs.db
+
